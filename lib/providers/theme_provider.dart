@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class ThemeProvider with ChangeNotifier {
   late ThemeData _themeData = lightTheme;
 
-  final darkTheme = ThemeData.dark();
+  final darkTheme = ThemeData.dark().copyWith(
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+  );
 
   final lightTheme = ThemeData(
     primarySwatch: Colors.grey,
