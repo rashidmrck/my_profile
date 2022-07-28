@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_profile/const_items.dart';
@@ -39,6 +42,100 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late ConfettiController _controllerCenter;
+
+  @override
+  void initState() {
+    _controllerCenter =
+        ConfettiController(duration: const Duration(seconds: 10));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controllerCenter.dispose();
+    super.dispose();
+  }
+
+  Path drawStar(Size size) {
+    // Method to convert degree to radians
+    final path = Path();
+    path.moveTo(0, 0);
+    path.lineTo(10, 0);
+    path.lineTo(10, 20);
+    path.lineTo(15, 5);
+    path.lineTo(20, 20);
+    path.lineTo(20, 0);
+    path.lineTo(30, 0);
+    path.lineTo(30, 40);
+    path.lineTo(15, 30);
+    path.lineTo(0, 40);
+    path.lineTo(0, 0);
+    path.close();
+
+    path.moveTo(35, 0);
+    path.lineTo(35, 20);
+    path.lineTo(45, 20);
+    path.lineTo(45, 15);
+    path.lineTo(40, 15);
+    path.lineTo(40, 0);
+    path.moveTo(35, 0);
+    path.close();
+
+    path.moveTo(50, 0);
+    path.lineTo(80, 0);
+    path.lineTo(80, 10);
+    path.lineTo(60, 10);
+    path.lineTo(60, 30);
+    path.lineTo(80, 30);
+    path.lineTo(80, 40);
+    path.lineTo(50, 40);
+    path.lineTo(50, 0);
+    path.close();
+
+    path.moveTo(85, 0);
+    path.lineTo(85, 40);
+    path.lineTo(95, 40);
+    path.lineTo(95, 0);
+    // path.lineTo(135, 10);
+    path.close();
+
+    path.moveTo(110, 0);
+    path.lineTo(120, 0);
+    path.lineTo(105, 20);
+    path.lineTo(95, 20);
+    path.close();
+    path.moveTo(95, 20);
+    path.lineTo(110, 40);
+    path.lineTo(120, 40);
+    path.lineTo(105, 20);
+
+    // path.lineTo(10, 10);
+    // path.lineTo(10, 20);
+    // path.lineTo(20, 20);
+    // path.lineTo(20, 10);
+    // path.lineTo(10, 10);
+    // path.close();
+    // const numberOfPoints = 5;
+    // final halfWidth = size.width / 2;
+    // final externalRadius = halfWidth;
+    // final internalRadius = halfWidth / 2.5;
+    // final degreesPerStep = degToRad(360 / numberOfPoints);
+    // final halfDegreesPerStep = degreesPerStep / 2;
+    // final path = Path();
+    // final fullAngle = degToRad(360);
+    // path.moveTo(size.width, halfWidth);
+
+    // for (double step = 0; step < fullAngle; step += degreesPerStep) {
+    //   path.lineTo(halfWidth + externalRadius * cos(step),
+    //       halfWidth + externalRadius * sin(step));
+    //   path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
+    //       halfWidth + internalRadius * sin(step + halfDegreesPerStep));
+    // }
+    // path.close();
+    return path;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,11 +217,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     Provider.of<ThemeProvider>(context, listen: false)
                         .changeThemeData();
                   },
-                )
+                ),
               ],
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _controllerCenter.play();
+          Future.delayed(Duration(seconds: 2), () {
+            _controllerCenter.stop();
+          });
+        },
+        child: ConfettiWidget(
+          confettiController: _controllerCenter,
+          blastDirectionality: BlastDirectionality.explosive,
+          particleDrag: 0.05,
+          emissionFrequency: 0.05,
+          numberOfParticles: 10,
+          gravity: 0.05,
+          shouldLoop: true,
+          createParticlePath: drawStar,
+          colors: const [
+            Colors.green,
+            Colors.blue,
+            Colors.pink,
+            Colors.orange,
+            Colors.purple
+          ], // manually specify the colors to be used
+        ),
       ),
     );
   }
