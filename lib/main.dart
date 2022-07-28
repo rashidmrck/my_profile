@@ -65,7 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   radius: 90,
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(vertical: defaultPadding),
+                  padding: EdgeInsets.all(
+                    defaultPadding,
+                  ),
                   child: Text(
                     "Hi, my name is Simon Doe and I'm a senior software engineer. Welcome to my personal website!",
                     style: TextStyle(
@@ -101,13 +103,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(FontAwesomeIcons.circleHalfStroke),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Dark Mode')
+                  ],
+                ),
+                Switch(
+                  value: Provider.of<ThemeProvider>(context).selectedTheme,
+                  onChanged: (value) {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .changeThemeData();
+                  },
+                )
               ],
             ),
-          ),
-          TextButton(
-            onPressed: () => Provider.of<ThemeProvider>(context, listen: false)
-                .changeThemeData(),
-            child: const Text('dark'),
           ),
         ],
       ),
