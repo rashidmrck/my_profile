@@ -97,7 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
     path.lineTo(85, 40);
     path.lineTo(95, 40);
     path.lineTo(95, 0);
-    // path.lineTo(135, 10);
     path.close();
 
     path.moveTo(110, 0);
@@ -109,30 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
     path.lineTo(110, 40);
     path.lineTo(120, 40);
     path.lineTo(105, 20);
-
-    // path.lineTo(10, 10);
-    // path.lineTo(10, 20);
-    // path.lineTo(20, 20);
-    // path.lineTo(20, 10);
-    // path.lineTo(10, 10);
-    // path.close();
-    // const numberOfPoints = 5;
-    // final halfWidth = size.width / 2;
-    // final externalRadius = halfWidth;
-    // final internalRadius = halfWidth / 2.5;
-    // final degreesPerStep = degToRad(360 / numberOfPoints);
-    // final halfDegreesPerStep = degreesPerStep / 2;
-    // final path = Path();
-    // final fullAngle = degToRad(360);
-    // path.moveTo(size.width, halfWidth);
-
-    // for (double step = 0; step < fullAngle; step += degreesPerStep) {
-    //   path.lineTo(halfWidth + externalRadius * cos(step),
-    //       halfWidth + externalRadius * sin(step));
-    //   path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
-    //       halfWidth + internalRadius * sin(step + halfDegreesPerStep));
-    // }
-    // path.close();
     return path;
   }
 
