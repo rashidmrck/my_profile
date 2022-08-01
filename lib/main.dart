@@ -141,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     defaultPadding,
                   ),
                   child: Text(
-                    "Hi, my name is Simon Doe and I'm a senior software engineer. Welcome to my personal website!",
+                    "Hi, my name is Mohammed Rashid and I'm a experianced software Developer. Welcome to my personal website!",
                     style: TextStyle(
                       fontSize: 17,
                     ),
