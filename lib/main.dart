@@ -57,60 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  Path drawStar(Size size) {
-    // Method to convert degree to radians
-    final path = Path();
-    path.moveTo(0, 0);
-    path.lineTo(10, 0);
-    path.lineTo(10, 20);
-    path.lineTo(15, 5);
-    path.lineTo(20, 20);
-    path.lineTo(20, 0);
-    path.lineTo(30, 0);
-    path.lineTo(30, 40);
-    path.lineTo(15, 30);
-    path.lineTo(0, 40);
-    path.lineTo(0, 0);
-    path.close();
-
-    path.moveTo(35, 0);
-    path.lineTo(35, 20);
-    path.lineTo(45, 20);
-    path.lineTo(45, 15);
-    path.lineTo(40, 15);
-    path.lineTo(40, 0);
-    path.moveTo(35, 0);
-    path.close();
-
-    path.moveTo(50, 0);
-    path.lineTo(80, 0);
-    path.lineTo(80, 10);
-    path.lineTo(60, 10);
-    path.lineTo(60, 30);
-    path.lineTo(80, 30);
-    path.lineTo(80, 40);
-    path.lineTo(50, 40);
-    path.lineTo(50, 0);
-    path.close();
-
-    path.moveTo(85, 0);
-    path.lineTo(85, 40);
-    path.lineTo(95, 40);
-    path.lineTo(95, 0);
-    path.close();
-
-    path.moveTo(110, 0);
-    path.lineTo(120, 0);
-    path.lineTo(105, 20);
-    path.lineTo(95, 20);
-    path.close();
-    path.moveTo(95, 20);
-    path.lineTo(110, 40);
-    path.lineTo(120, 40);
-    path.lineTo(105, 20);
-    return path;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,6 +142,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
+          Container(
+            child: CustomPaint(
+              painter: FaceOutlinePainter(),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -258,4 +209,76 @@ class SocialIconButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class FaceOutlinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // TODO: implement paint
+    Paint _paint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 1.0
+      ..style = PaintingStyle.stroke
+      ..strokeJoin = StrokeJoin.round;
+
+    Path path = drawStar(size);
+    canvas.drawPath(path, _paint);
+  }
+
+  @override
+  bool shouldRepaint(FaceOutlinePainter oldDelegate) => false;
+}
+
+Path drawStar(Size size) {
+  // Method to convert degree to radians
+  final path = Path();
+  path.moveTo(0, 0);
+  path.lineTo(5, 0);
+  path.lineTo(5, -15);
+  path.lineTo(10, 0);
+  path.lineTo(15, -15);
+  path.lineTo(15, 0);
+  path.lineTo(20, 0);
+  path.lineTo(20, -30);
+  path.lineTo(10, -20);
+  path.lineTo(0, -30);
+  path.lineTo(0, 0);
+  path.close();
+
+  path.moveTo(25, 0);
+  path.lineTo(25, -15);
+  path.lineTo(35, -15);
+  path.lineTo(35, -10);
+  path.lineTo(30, -10);
+  path.lineTo(30, 0);
+  path.lineTo(30, 0);
+  path.close();
+
+  path.moveTo(40, 0);
+  path.lineTo(60, 0);
+  path.lineTo(60, -5);
+  path.lineTo(45, -5);
+  path.lineTo(45, -25);
+  path.lineTo(60, -25);
+  path.lineTo(60, -30);
+  path.lineTo(40, -30);
+  path.lineTo(40, 0);
+  path.close();
+
+  path.moveTo(65, 0);
+  path.lineTo(65, -30);
+  path.lineTo(70, -30);
+  path.lineTo(70, 0);
+  path.close();
+
+  path.moveTo(80, 0);
+  path.lineTo(85, 0);
+  path.lineTo(75, -15);
+  path.lineTo(70, -15);
+  path.close();
+  path.moveTo(70, -15);
+  path.lineTo(80, -30);
+  path.lineTo(85, -30);
+  path.lineTo(75, -15);
+  return path;
 }
