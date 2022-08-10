@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_profile/const_items.dart';
 import 'package:my_profile/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
+import 'dart:math' as math;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Required
@@ -119,7 +120,46 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                Divider(),
+                const Divider(
+                  endIndent: 20,
+                  indent: 20,
+                  color: Colors.white,
+                ),
+                TextButton.icon(
+                  onPressed: () {},
+                  icon: Icon(Icons.person),
+                  label: Text('About Me'),
+                  
+                ),
+                TextButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.hovered))
+                        return Colors.green;
+                      return Colors.purpleAccent;
+                    }),
+                  ),
+                  child: const Text(
+                    'Text Button ',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Center(
+                    child: Text(
+                      'About Me',
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+                const Divider(
+                  endIndent: 20,
+                  indent: 20,
+                  color: Colors.white,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -147,30 +187,45 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controllerCenter.play();
-          Future.delayed(Duration(seconds: 2), () {
-            _controllerCenter.stop();
-          });
-        },
-        child: ConfettiWidget(
-          confettiController: _controllerCenter,
-          blastDirectionality: BlastDirectionality.explosive,
-          particleDrag: 0.05,
-          emissionFrequency: 0.05,
-          numberOfParticles: 10,
-          gravity: 0.05,
-          shouldLoop: true,
-          createParticlePath: drawStar,
-          colors: const [
-            Colors.green,
-            Colors.blue,
-            Colors.pink,
-            Colors.orange,
-            Colors.purple
-          ], // manually specify the colors to be used
-        ),
+      floatingActionButton: Stack(
+        children: [
+          ConfettiWidget(
+            confettiController: _controllerCenter,
+            blastDirectionality: BlastDirectionality.explosive,
+            particleDrag: 0.05,
+            emissionFrequency: 0.05,
+            numberOfParticles: 6,
+            gravity: 0.05,
+            shouldLoop: true,
+            createParticlePath: drawStar,
+            colors: const [
+              Colors.green,
+              Colors.blue,
+              Colors.pink,
+              Colors.orange,
+              Colors.purple,
+              Colors.black,
+              Colors.amber,
+              Colors.yellow,
+              Colors.cyan,
+              Colors.red,
+              Colors.grey,
+            ], // manually specify the colors to be used
+          ),
+          Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(math.pi),
+            child: IconButton(
+              icon: const Icon(Icons.celebration),
+              onPressed: () {
+                _controllerCenter.play();
+                Future.delayed(Duration(seconds: 2), () {
+                  _controllerCenter.stop();
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
