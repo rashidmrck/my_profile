@@ -81,158 +81,196 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: <Widget>[
-          Ink(
-            width: 320,
-            height: double.infinity,
-            color: Colors.grey,
-            child: ListView(
-              children: [
-                const Center(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: defaultPadding + 10),
-                  child: SelectableText(
-                    'Mohammed Rashid C.K',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )),
-                CircleAvatar(
-                  radius: 90,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(90),
-                    child: Image.asset('images/profile_pic.jpg'),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(
-                    defaultPadding,
-                  ),
-                  child: SelectableText(
-                    "Hi, my name is Mohammed Rashid and I'm a experianced software Developer. Welcome to my personal website!",
-                    style: TextStyle(
-                      fontSize: 17,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SocialIconButton(
-                      icon: FontAwesomeIcons.linkedin,
-                      onPressed: () => _launchUrl(Uri.parse(
-                          'https://www.linkedin.com/in/mohammed-rashid-c-k-4812321aa/')),
-                    ),
-                    SocialIconButton(
-                      icon: FontAwesomeIcons.github,
-                      onPressed: () => _launchUrl(
-                          Uri.parse('https://github.com/rashidmrck')),
-                    ),
-                    SocialIconButton(
-                      icon: FontAwesomeIcons.instagram,
-                      onPressed: () => _launchUrl(
-                          Uri.parse('https://www.instagram.com/rashidmrck/')),
-                    ),
-                    SocialIconButton(
-                      icon: FontAwesomeIcons.twitter,
-                      onPressed: () => _launchUrl(
-                          Uri.parse('https://twitter.com/Rashidmrck')),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  endIndent: 20,
-                  indent: 20,
-                  color: Colors.white,
-                ),
-                const HovertextIconButton(
-                  icon: Icons.person,
-                  title: 'About Me',
-                  routeName: NavigationItem.aboutMe,
-                ),
-                const HovertextIconButton(
-                  icon: Icons.insert_drive_file_sharp,
-                  title: 'Resume',
-                  routeName: NavigationItem.resume,
-                ),
-                const Divider(
-                  endIndent: 20,
-                  indent: 20,
-                  color: Colors.white,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(FontAwesomeIcons.circleHalfStroke),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text('Dark Mode')
-                  ],
-                ),
-                Switch(
-                  value: Provider.of<ThemeProvider>(context).selectedTheme,
-                  onChanged: (value) {
-                    Provider.of<ThemeProvider>(context, listen: false)
-                        .changeThemeData();
-                  },
-                ),
-              ],
+    return LayoutBuilder(
+      builder: (context, constraints) => Scaffold(
+        appBar: constraints.maxWidth < 1000 ? AppBar() : null,
+        body: Row(
+          children: [
+            if (constraints.maxWidth > 1000) const DrawerItems(),
+            // Container(
+            //   child: CustomPaint(
+            //     painter: FaceOutlinePainter(),
+            //   ),
+            // ),
+            const Expanded(child: const SelectedPage())
+          ],
+        ),
+        drawer: const Drawer(
+            child: DrawerItems(
+          inDrawer: true,
+        )),
+        floatingActionButton: Stack(
+          children: [
+            ConfettiWidget(
+              confettiController: _controllerCenter,
+              // blastDirectionality: BlastDirectionality.explosive,
+              blastDirection: 180,
+              particleDrag: 0.05,
+              emissionFrequency: 0.05,
+              numberOfParticles: 6,
+              gravity: 0.05,
+              shouldLoop: true,
+              createParticlePath: drawStar,
+              colors: const [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.orange,
+                Colors.purple,
+                Colors.black,
+                Colors.amber,
+                Colors.yellow,
+                Colors.cyan,
+                Colors.red,
+                Colors.grey,
+              ], // manually specify the colors to be used
             ),
-          ),
-          // Container(
-          //   child: CustomPaint(
-          //     painter: FaceOutlinePainter(),
-          //   ),
-          // ),
-          const Expanded(child: SelectedPage())
-        ],
+            Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(math.pi),
+              child: IconButton(
+                icon: const Icon(Icons.celebration),
+                onPressed: () {
+                  _controllerCenter.play();
+                  Future.delayed(const Duration(seconds: 2), () {
+                    _controllerCenter.stop();
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: Stack(
+    );
+  }
+}
+
+class DrawerItems extends StatelessWidget {
+  final bool inDrawer;
+  const DrawerItems({
+    Key? key,
+    this.inDrawer = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Ink(
+      width: 320,
+      height: double.infinity,
+      color: Colors.grey,
+      child: ListView(
         children: [
-          ConfettiWidget(
-            confettiController: _controllerCenter,
-            // blastDirectionality: BlastDirectionality.explosive,
-            blastDirection: 180,
-            particleDrag: 0.05,
-            emissionFrequency: 0.05,
-            numberOfParticles: 6,
-            gravity: 0.05,
-            shouldLoop: true,
-            createParticlePath: drawStar,
-            colors: const [
-              Colors.green,
-              Colors.blue,
-              Colors.pink,
-              Colors.orange,
-              Colors.purple,
-              Colors.black,
-              Colors.amber,
-              Colors.yellow,
-              Colors.cyan,
-              Colors.red,
-              Colors.grey,
-            ], // manually specify the colors to be used
-          ),
-          Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.rotationY(math.pi),
-            child: IconButton(
-              icon: const Icon(Icons.celebration),
-              onPressed: () {
-                _controllerCenter.play();
-                Future.delayed(const Duration(seconds: 2), () {
-                  _controllerCenter.stop();
-                });
-              },
+          const Center(
+              child: Padding(
+            padding: EdgeInsets.symmetric(vertical: defaultPadding + 10),
+            child: SelectableText(
+              'Mohammed Rashid C.K',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+          )),
+          CircleAvatar(
+            radius: 90,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(90),
+              child: Image.asset('images/profile_pic.jpg'),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(
+              defaultPadding,
+            ),
+            child: SelectableText(
+              "Hi, my name is Mohammed Rashid and I'm a experianced software Developer. Welcome to my personal website!",
+              style: TextStyle(
+                fontSize: 17,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SocialIconButton(
+                icon: FontAwesomeIcons.linkedin,
+                onPressed: () {
+                  _launchUrl(_urlLinkdin);
+                  if (inDrawer) {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+              SocialIconButton(
+                icon: FontAwesomeIcons.github,
+                onPressed: () {
+                  _launchUrl(_urlGithub);
+                  if (inDrawer) {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+              SocialIconButton(
+                icon: FontAwesomeIcons.instagram,
+                onPressed: () {
+                  _launchUrl(_urlInsta);
+                  if (inDrawer) {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+              SocialIconButton(
+                icon: FontAwesomeIcons.twitter,
+                onPressed: () {
+                  _launchUrl(_urlTwitter);
+                  if (inDrawer) {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+            ],
+          ),
+          const Divider(
+            endIndent: 20,
+            indent: 20,
+            color: Colors.white,
+          ),
+          HovertextIconButton(
+            icon: Icons.person,
+            title: 'About Me',
+            routeName: NavigationItem.aboutMe,
+            inDrawer: inDrawer,
+          ),
+          HovertextIconButton(
+            icon: Icons.insert_drive_file_sharp,
+            title: 'Resume',
+            routeName: NavigationItem.resume,
+            inDrawer: inDrawer,
+          ),
+          const Divider(
+            endIndent: 20,
+            indent: 20,
+            color: Colors.white,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(FontAwesomeIcons.circleHalfStroke),
+              SizedBox(
+                width: 10,
+              ),
+              Text('Dark Mode')
+            ],
+          ),
+          Switch(
+            value: Provider.of<ThemeProvider>(context).selectedTheme,
+            onChanged: (value) {
+              Provider.of<ThemeProvider>(context, listen: false)
+                  .changeThemeData();
+            },
           ),
         ],
       ),
@@ -244,8 +282,11 @@ class HovertextIconButton extends StatefulWidget {
   final IconData icon;
   final String title;
   final NavigationItem? routeName;
+  final bool inDrawer;
+
   const HovertextIconButton({
     Key? key,
+    this.inDrawer = false,
     required this.icon,
     required this.title,
     this.routeName,
@@ -271,10 +312,15 @@ class _HovertextIconButtonState extends State<HovertextIconButton> {
             _hoverDetect = value;
           });
         },
-        onTap: () => Provider.of<NavigationProvider>(context, listen: false)
-            .setSelectedNavigation(
-          widget.routeName!,
-        ),
+        onTap: () {
+          Provider.of<NavigationProvider>(context, listen: false)
+              .setSelectedNavigation(
+            widget.routeName!,
+          );
+          if (widget.inDrawer) {
+            Navigator.pop(context);
+          }
+        },
         hoverColor: Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
