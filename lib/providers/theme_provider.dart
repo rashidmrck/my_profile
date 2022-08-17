@@ -6,7 +6,7 @@ class ThemeProvider with ChangeNotifier {
 
   final darkTheme = ThemeData.dark().copyWith(
     iconTheme: IconThemeData(
-      color: Colors.black,
+      color: Colors.blue.shade900,
     ),
   );
 
