@@ -13,6 +13,7 @@ import 'dart:math' as math;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_strategy/url_strategy.dart';
 
+import 'clip_class.dart';
 import 'model/navigation_item.dart';
 
 void main() {
@@ -378,77 +379,7 @@ class SocialIconButton extends StatelessWidget {
   }
 }
 
-class FaceOutlinePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
-    Paint _paint = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 1.0
-      ..style = PaintingStyle.stroke
-      ..strokeJoin = StrokeJoin.round;
 
-    Path path = drawStar(size);
-    canvas.drawPath(path, _paint);
-  }
-
-  @override
-  bool shouldRepaint(FaceOutlinePainter oldDelegate) => false;
-}
-
-Path drawStar(Size size) {
-  // Method to convert degree to radians
-  final path = Path();
-  path.moveTo(0, 0);
-  path.lineTo(5, 0);
-  path.lineTo(5, -15);
-  path.lineTo(10, 0);
-  path.lineTo(15, -15);
-  path.lineTo(15, 0);
-  path.lineTo(20, 0);
-  path.lineTo(20, -30);
-  path.lineTo(10, -20);
-  path.lineTo(0, -30);
-  path.lineTo(0, 0);
-  path.close();
-
-  path.moveTo(25, 0);
-  path.lineTo(25, -15);
-  path.lineTo(35, -15);
-  path.lineTo(35, -10);
-  path.lineTo(30, -10);
-  path.lineTo(30, 0);
-  path.lineTo(30, 0);
-  path.close();
-
-  path.moveTo(40, 0);
-  path.lineTo(60, 0);
-  path.lineTo(60, -5);
-  path.lineTo(45, -5);
-  path.lineTo(45, -25);
-  path.lineTo(60, -25);
-  path.lineTo(60, -30);
-  path.lineTo(40, -30);
-  path.lineTo(40, 0);
-  path.close();
-
-  path.moveTo(65, 0);
-  path.lineTo(65, -30);
-  path.lineTo(70, -30);
-  path.lineTo(70, 0);
-  path.close();
-
-  path.moveTo(80, 0);
-  path.lineTo(85, 0);
-  path.lineTo(75, -15);
-  path.lineTo(70, -15);
-  path.close();
-  path.moveTo(70, -15);
-  path.lineTo(80, -30);
-  path.lineTo(85, -30);
-  path.lineTo(75, -15);
-  return path;
-}
 
 Future<void> _launchUrl(Uri url) async {
   if (!await launchUrl(url)) {

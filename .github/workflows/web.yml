@@ -14,3 +14,6 @@ jobs:
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
           baseHref: /my_profile/
+      - uses: erickzanardo/flutter-gh-pages@v7
+        with:
+          webRenderer: html

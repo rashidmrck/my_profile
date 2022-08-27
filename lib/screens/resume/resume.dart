@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_profile/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../clip_class.dart';
+
 class Resume extends StatelessWidget {
   static const String classId = '/resume';
   const Resume({Key? key}) : super(key: key);
@@ -37,6 +39,13 @@ class Resume extends StatelessWidget {
             ],
           ),
           Text('Resume'),
+          SizedBox(
+            height: 200,
+            width: 250,
+            child: CustomPaint(
+              painter: RPSCustomPainter(),
+            ),
+          )
         ],
       ),
     );
