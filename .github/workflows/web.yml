@@ -14,6 +14,4 @@ jobs:
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
           baseHref: /my_profile/
-      - uses: bluefireteam/flutter-gh-pages@v7
-        with:
-          webRenderer: canvaskit
+          webRenderer: html
