@@ -386,3 +386,4 @@ Future<void> _launchUrl(Uri url) async {
     throw 'Could not launch $url';
   }
 }
+
